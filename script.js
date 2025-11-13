@@ -1,11 +1,11 @@
 const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
 const errorMsg = document.getElementById("errorMsg");
 const taskList = document.getElementById("taskList");
+const taskForm = document.getElementById("taskForm");
 
 let tasks = [];
 
-addBtn.addEventListener("click", handleAddClick);
+taskForm.addEventListener("submit", handleAddClick);
 
 function addTask(text) {
   const task = {
@@ -57,10 +57,15 @@ function deleteTask(index) {
   saveTasks();
 }
 
-function handleAddClick() {
+function handleAddClick(event) {
+    event.preventDefault();
   const text = taskInput.value.trim();
   if (text === "") {
     errorMsg.textContent = "Please enter a task";
     return;
   }
+  addTask(text);
+  taskInput.value = "";
+  errorMsg.textContent = "";
+  taskInput.focus();
 }
