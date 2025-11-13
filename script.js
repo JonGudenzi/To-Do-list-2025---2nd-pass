@@ -43,7 +43,16 @@ function render() {
   });
 }
 
-function saveTasks() {}
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const saved = localStorage.getItem("tasks");
+    if (saved) {
+        tasks = JSON.parse(saved);
+    }
+}
 
 function toggleTask(index) {
   tasks[index].completed = !tasks[index].completed;
@@ -69,3 +78,6 @@ function handleAddClick(event) {
   errorMsg.textContent = "";
   taskInput.focus();
 }
+
+loadTasks();
+render();
